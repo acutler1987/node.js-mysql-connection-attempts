@@ -11,12 +11,16 @@ const connection = mysql.createConnection({
   database: "join_us",
 });
 
-// Run a MYSQL query...
-const person = "jack@yahoo.com";
+// Setting up the data for insertion...
+let peopleData = [];
+for (let i = 0; i < 500; i++) {
+  peopleData.push([faker.internet.email(), faker.date.past()]);
+}
+// console.log(peopleData);
 
-var q = `INSERT INTO join_us.users (email)
-  VALUES ('${person}');`;
-connection.query(q, function (error, results, fields) {
+// Run a MYSQL query...
+var q = `INSERT INTO join_us.users (email, created_at) VALUES ?;`;
+connection.query(q, [peopleData], function (error, results, fields) {
   if (error) throw error;
   console.log(results);
 });
