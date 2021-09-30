@@ -12,10 +12,12 @@ const connection = mysql.createConnection({
 });
 
 // Run a MYSQL query...
+const person = "jack@yahoo.com";
 
-var q = "SELECT CURTIME() as time, CURDATE() as date, NOW() as now";
+var q = `INSERT INTO join_us.users (email)
+  VALUES ('${person}');`;
 connection.query(q, function (error, results, fields) {
   if (error) throw error;
-  console.log(results[0]);
+  console.log(results);
 });
 connection.end();
